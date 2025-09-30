@@ -1,0 +1,17 @@
+# Variables base del proyecto
+variable "region"  {"type" = string, "default" = "us-east-2"}
+variable "profile" {"type" = string, "default" = "maraosoc"}
+variable "owner"   {"type" = string, "default" = "maraosoc"}
+
+# Identidad del stack (para nombres únicos)
+variable "name" {
+  type        = string
+  description = "Nombre base para recursos (etiquetas, SG, perfiles, etc.)"
+}
+
+# Tipo de instancia (free tier amigable)
+variable "instance_type" {
+  type        = string
+  default     = "t2.micro"
+  description = "Tipo de instancia EC2 (t2.micro/t3.micro, etc.)"
+}
