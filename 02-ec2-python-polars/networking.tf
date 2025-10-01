@@ -3,14 +3,17 @@ data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
-# Security Group: solo salida a Internet (SSM usa conexiones salientes)
+# Security Group: solo salida a Internet
 resource "aws_security_group" "egress_only" {
   name        = "${var.name}-egress-only"
-  description = "Permite solo tráfico de salida"
+  description = "Permite solo trafico de salida"
   vpc_id      = data.aws_vpc.default.id
 
   egress {

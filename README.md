@@ -12,7 +12,7 @@ Cada carpeta incluye:
 - Código Terraform listo para `init/plan/apply/destroy`.
 - Conexión por SSM.
 - **README** con instrucciones para correr el código.
-- **screenshot.png** como evidencia de instalación.
+- Carpeta **screenshot** con evidencia de instalación.
 
 ---
 
