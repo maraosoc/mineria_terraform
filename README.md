@@ -1,6 +1,6 @@
-# Infra Minería Lab (Terraform + AWS)
+# Minería Lab: Terraform + AWS
 
-Este repositorio contiene **5 entregables** (carpetas independientes de Terraform):
+Este repositorio contiene **5 entregables**, para poner el práctica la IaC declarativa con Terraform.
 
 1. `01-ec2-python-pandas`: Instancia EC2 con Python + Pandas
 2. `02-ec2-python-polars`: Instancia EC2 con Python + Polars
@@ -10,31 +10,35 @@ Este repositorio contiene **5 entregables** (carpetas independientes de Terrafor
 
 Cada carpeta incluye:
 - Código Terraform listo para `init/plan/apply/destroy`.
-- **Conexión por SSM** (sin llaves SSH).
-- **README** con instrucciones y comandos de verificación.
-- **screenshot.png** de *placeholder* (remplázalo con tu evidencia).
+- Conexión por SSM.
+- **README** con instrucciones para correr el código.
+- **screenshot.png** como evidencia de instalación.
 
 ---
 
 ## Prerrequisitos
 
-- Windows 11 con **AWS CLI v2**, **Session Manager Plugin** y **Terraform** instalados.
-- Autenticación por **SSO** configurada en tu CLI:
-  - **SSO session name**: `mineria-sso` (nombre referencial de sesión)
+- Windows con **AWS CLI v2**, **Session Manager Plugin (SMP)** y **Terraform** instalados.
+> Versiones usadas para este laboratorio: AWS - `aws-cli/2.31.3 Python/3.13.7 Windows/11 exe/AMD64`, SMP - `1.2.707.0`, Tarreform - `v1.13.3`
+- Autenticación por **SSO**:
+  - **SSO session name**: `mineria-sso`
   - **Profile name**: `maraosoc`
   - **Region**: `us-east-2`
-  - **Permission set**: *AdministratorAccess* (predefinido de AWS)
+  - **Permission set**: *AdministratorAccess*
 
-Si aún no lo hiciste:
+**Cómo configurar AWS CLI para SSO**:
+- Solo una vez
 ```powershell
 aws configure sso
-# SSO start URL: <tu access portal URL>
+# SSO session name
+# SSO start URL: <URL de AWS access portal>
 # SSO region: us-east-2
-# Selecciona tu cuenta y el permission set AdministratorAccess
+# Loggearse a la cuenta
 # Profile name: maraosoc
-
+```
+- Después
+```
 aws sso login --profile maraosoc
-aws sts get-caller-identity --profile maraosoc
 ```
 
 ---
@@ -42,7 +46,7 @@ aws sts get-caller-identity --profile maraosoc
 ## Estructura
 
 ```
-infra-mineria-lab/
+mineria-terraform/
 ├─ .gitignore
 ├─ README.md
 ├─ 01-ec2-python-pandas/
@@ -54,7 +58,8 @@ infra-mineria-lab/
 
 ---
 
-## Flujo general (en cada carpeta)
+## Flujo general
+En cada carpeta
 
 ```powershell
 # Variables de entorno útiles (ajusta si lo necesitas)

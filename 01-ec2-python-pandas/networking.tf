@@ -1,16 +1,22 @@
-# VPC y subred por defecto para simplificar el laboratorio
+# Asegura que la instancia EC2 pueda salir a internet (egress) 
+# para comunicarse con los servicios AWS que requiere SSM
+# Toma VPC y subred por defecto para simplificar el laboratorio
 data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
-# Security Group: solo salida a Internet (SSM usa conexiones salientes)
+# Cierra las entradas (ingress) de internet con Security Group
+# pues SSM usa conexiones salientes
 resource "aws_security_group" "egress_only" {
   name        = "${var.name}-egress-only"
-  description = "Permite solo tráfico de salida"
+  description = "Permite solo trafico de salida"
   vpc_id      = data.aws_vpc.default.id
 
   egress {

@@ -1,6 +1,11 @@
 # VPC/Subred por defecto
 data "aws_vpc" "default" { default = true }
-data "aws_subnet_ids" "default" { vpc_id = data.aws_vpc.default.id }
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
+}
 
 #################################
 # Roles e Instance Profiles
@@ -84,7 +89,7 @@ resource "aws_emr_cluster" "this" {
 
   # Red / EC2
   ec2_attributes {
-    subnet_id        = element(data.aws_subnet_ids.default.ids, 0)
+    subnet_id        = element(data.aws_subnets.default.ids, 0)
     instance_profile = aws_iam_instance_profile.emr_ec2_profile.arn
     key_name         = var.key_name
   }
