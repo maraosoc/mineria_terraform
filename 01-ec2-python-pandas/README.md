@@ -36,7 +36,7 @@ terraform apply "ec2-pandas-plan"
 aws ssm start-session --target $(terraform output -raw instance_id) --profile maraosoc --region us-east-2
 ```
 
-## Verificación (pantallazo)
+## Verificación
 Ejecutar dentro de la sesión SSM:
 ```
 python3 -c "import pandas as pd; print(pd.__version__)"
