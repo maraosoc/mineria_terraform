@@ -45,7 +45,7 @@ A continuación se muestran dos imágenes, la de la izquierda es la consola con 
 
 <div style="display: flex; gap: 10px;">
     <img src="screenshot/Captura de pantalla 2025-10-02 165805.png" alt="EC2 Creada - consola" width="45%" />
-    <img src="screenshot/CCaptura de pantalla 2025-10-06 103008.png" alt="EC2 Creada - aws" width="45%" />
+    <img src="screenshot/Captura de pantalla 2025-10-06 103008.png" alt="EC2 Creada - aws" width="45%" />
 </div>
 
 ---
