@@ -19,6 +19,7 @@ $env:TF_VAR_owner   = "maraosoc"
 ```powershell
 terraform init
 terraform plan -var="name=ec2-polars" -out=ec2-polars-plan
+terraform apply "c2-polars-plan"
 
 # Conexión por SSM
 aws ssm start-session --target $(terraform output -raw instance_id) --profile maraosoc --region us-east-2

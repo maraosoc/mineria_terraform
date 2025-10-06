@@ -2,7 +2,7 @@
 Acá se construye una instancia EC2 con Amazon Linux 2023 que tiene un agente SSM preinstalado y usamos el script de _cloud-init_ `user_data.sh` para instalar pandas. 
 
 ## Estructura
-
+La estructura es compartida en todas las tareas
 ```
 01-ec2-python-pandas/
 ├─ provider.tf → configura Terraform y AWS
