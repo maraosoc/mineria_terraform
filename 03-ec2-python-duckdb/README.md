@@ -49,8 +49,8 @@ A continuación se muestran dos imágenes, la de la izquierda es la consola con 
 </div>
 
 ---
-## Evidencia de instalación de polars
+## Evidencia de instalación de duckdb
 
-La siguiente imagen muestra la versión de polars instalada en la instancia EC2:
+La siguiente imagen muestra la versión de duckdb instalada en la instancia EC2:
 
-<img src="screenshot/Captura de pantalla 2025-10-06 103059.png" alt="Versión de polars instalada" width="50%" />
+<img src="screenshot/Captura de pantalla 2025-10-06 103059.png" alt="Versión de duckdb instalada" width="50%" />
