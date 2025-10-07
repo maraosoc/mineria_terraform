@@ -15,7 +15,7 @@ variable "owner"   {
 # Identidad del stack (para nombres únicos)
 variable "name" {
   type        = string
-  default     = "lab_01"
+  default     = "lab_03"
   description = "Nombre base para recursos (etiquetas, SG, perfiles, etc.)"
 }
 

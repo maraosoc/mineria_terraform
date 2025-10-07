@@ -1,8 +1,10 @@
-#!/bin/bash
         set -euxo pipefail
         dnf -y update
+        # 1) Sistema base + Java 17 (Corretto)
         dnf -y install python3 python3-pip java-17-amazon-corretto
+        # 2) pip y pyspark de forma "global" (para TODOS los usuarios)
         python3 -m pip install --upgrade pip
+        export PIP_ROOT_USER_ACTION=ignore
         python3 -m pip install pyspark
 
         # Exporta JAVA_HOME para pyspark

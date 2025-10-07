@@ -27,7 +27,7 @@ aws ssm start-session --target $(terraform output -raw instance_id) --profile ma
 
 ## Verificación
 Ejecutar dentro de la sesión SSM:
-```
+```bash
 python3 -c "import platform, polars as pl; print('Python', platform.python_version(), 'Polars', pl.__version__)"
 ```
 
