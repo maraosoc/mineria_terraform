@@ -28,9 +28,14 @@ aws ssm start-session --target $(terraform output -raw instance_id) --profile ma
 ## Verificación 
 Ejecutar dentro de la sesión SSM:
 ```bash
-python3 -c "from pyspark.sql import SparkSession spark = SparkSession.builder.getOrCreate()
+/usr/bin/python3.11 - << 'PY'
+import pyspark
+print("PySpark:", pyspark.__version__)
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.getOrCreate()
 print("Spark version:", spark.version)
 spark.stop()
+PY
 ```
 
 ## Finalización
@@ -46,8 +51,8 @@ terraform destroy -auto-approve -var="name=ec2-spark"
 A continuación se muestran dos imágenes, la de la izquierda es la consola con la aplicación del plan y la de la derecha muestra la instancia correctamente creada en aws.
 
 <div style="display: flex; gap: 10px;">
-    <img src="screenshot/Captura de pantalla 2025-10-02 165805.png" alt="EC2 Creada - consola" width="45%" />
-    <img src="screenshot/Captura de pantalla 2025-10-06 103008.png" alt="EC2 Creada - aws" width="45%" />
+    <img src="screenshot/Captura de pantalla 2025-10-07 155936.png" alt="EC2 Creada - consola" width="45%" />
+    <img src="screenshot/Captura de pantalla 2025-10-07 160001.png" alt="EC2 Creada - aws" width="45%" />
 </div>
 
 ---
@@ -55,5 +60,5 @@ A continuación se muestran dos imágenes, la de la izquierda es la consola con 
 
 La siguiente imagen muestra la versión de spark instalada en la instancia EC2:
 
-<img src="screenshot/Captura de pantalla 2025-10-06 103059.png" alt="Versión de spark instalada" width="50%" />
+<img src="screenshot/Captura de pantalla 2025-10-08 203445.png" alt="Versión de spark instalada" width="50%" />
 
