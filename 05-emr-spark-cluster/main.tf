@@ -57,22 +57,26 @@ resource "aws_iam_instance_profile" "emr_ec2_profile" {
   role = aws_iam_role.emr_ec2.name
 }
 
-# Rol de autoscaling (algunas features lo requieren)
-resource "aws_iam_role" "emr_autoscaling" {
-  name = "${var.name}-emr-autoscaling-role"
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [{
-      Effect = "Allow",
-      Principal = { Service = "application-autoscaling.amazonaws.com" },
-      Action = "sts:AssumeRole"
-    }]
-  })
-}
+#################################
+# Security Group para EMR (solo egress)
+#################################
+resource "aws_security_group" "emr_egress_only" {
+  name        = "${var.name}-egress-only"
+  description = "Permite solo trafico de salida a Internet"
+  vpc_id      = data.aws_vpc.default.id
 
-resource "aws_iam_role_policy_attachment" "emr_autoscaling_policy" {
-  role       = aws_iam_role.emr_autoscaling.name
-  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonElasticMapReduceAutoScalingPolicy"
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name    = "${var.name}-egress-only"
+    Project = "mineria-lab"
+    Owner   = var.owner
+  }
 }
 
 #################################
@@ -85,13 +89,15 @@ resource "aws_emr_cluster" "this" {
 
   # Roles
   service_role     = aws_iam_role.emr_service.arn
-  autoscaling_role = aws_iam_role.emr_autoscaling.arn
 
   # Red / EC2
   ec2_attributes {
     subnet_id        = element(data.aws_subnets.default.ids, 0)
     instance_profile = aws_iam_instance_profile.emr_ec2_profile.arn
     key_name         = var.key_name
+    # Security Group egress only
+    emr_managed_master_security_group = aws_security_group.emr_egress_only.id
+    emr_managed_slave_security_group  = aws_security_group.emr_egress_only.id
   }
 
   master_instance_group {
@@ -102,6 +108,11 @@ resource "aws_emr_cluster" "this" {
   core_instance_group {
     instance_type  = var.core_instance_type
     instance_count = var.core_instance_count
+  }
+
+  # Autoterminacion
+  auto_termination_policy {
+  idle_timeout = 900  # segundos -> 15 minutos
   }
 
   # Etiquetas
