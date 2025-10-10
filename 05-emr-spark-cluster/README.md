@@ -51,7 +51,7 @@ terraform destroy -auto-approve -var="name=emr-spark"
 # Evidencias
 
 ---
-## Evidencia de creación de la instancia EC2
+## Evidencia de creación de la instancia EMR
 
 A continuación se muestran dos imágenes, la de la izquierda es la consola con la aplicación del plan y la de la derecha muestra la instancia correctamente creada en aws.
 
@@ -63,6 +63,6 @@ A continuación se muestran dos imágenes, la de la izquierda es la consola con 
 ---
 ## Evidencia de instalación de spark
 
-La siguiente imagen muestra la versión de spark instalada en la instancia EC2:
+La siguiente imagen muestra la versión de spark instalada en la instancia EMR:
 
 <img src="screenshot/Captura de pantalla 2025-10-10 090729.png" alt="Versión de spark instalada" width="50%" />
