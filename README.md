@@ -5,13 +5,13 @@ Este repositorio contiene **5 entregables**, para poner el práctica la IaC decl
 1. `01-ec2-python-pandas`: Instancia EC2 con Python + Pandas
 2. `02-ec2-python-polars`: Instancia EC2 con Python + Polars
 3. `03-ec2-python-duckdb`: Instancia EC2 con Python + DuckDB
-4. `04-ec2-python-spark`: Instancia EC2 con Python + Spark (modo local)
+4. `04-ec2-python-spark`: Instancia EC2 con Python + Spark
 5. `05-emr-spark-cluster`: EMR con Spark distribuido
 
 Cada carpeta incluye:
-- Código Terraform listo para `init/plan/apply/destroy`.
+- Código de Terraform preparado para aplicar `init/plan/apply/destroy`.
 - Conexión por SSM.
-- **README** con instrucciones para correr el código.
+- **README** con instrucciones para correr el código y evidencias.
 - Carpeta **screenshot** con evidencia de instalación.
 
 ---
@@ -43,34 +43,19 @@ aws sso login --profile maraosoc
 
 ---
 
-## Estructura
-
-```
-mineria-terraform/
-├─ .gitignore
-├─ README.md
-├─ 01-ec2-python-pandas/
-├─ 02-ec2-python-polars/
-├─ 03-ec2-python-duckdb/
-├─ 04-ec2-python-spark/
-└─ 05-emr-spark-cluster/
-```
-
----
-
 ## Flujo general
 En cada carpeta
 
 ```powershell
-# Variables de entorno útiles (ajusta si lo necesitas)
+# Variables de entorno
 $env:AWS_PROFILE    = "maraosoc"
 $env:TF_VAR_profile = "maraosoc"
 $env:TF_VAR_region  = "us-east-2"
 $env:TF_VAR_owner   = "maraosoc"
 
 terraform init
-terraform plan -var="name=<nombre-instancia-o-cluster>"
-terraform apply -auto-approve -var="name=<nombre-instancia-o-cluster>"
+terraform plan -var="name=<nombre-instancia-o-cluster>" -out=<nombre-del-plan>
+terraform apply "<nombre-del-plan>"
 
 # Conectarte por SSM (EC2)
 aws ssm start-session --target <InstanceId> --profile maraosoc --region us-east-2
